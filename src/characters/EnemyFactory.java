@@ -3,7 +3,6 @@ package characters;
 import java.util.Random;
 
 public class EnemyFactory {
-
     private final Random random = new Random();
 
     public Enemy generate(int wave) {
@@ -11,9 +10,9 @@ public class EnemyFactory {
         String name = names[random.nextInt(names.length)];
 
         int baseHP = 30 + wave * 10;
-        int baseDamage = 5 + wave * 2;
+        int baseAttackMin = 5 + wave;
+        int baseAttackMax = baseAttackMin + 5;
 
-        // We'll use baseDamage logic later — for now, store it as HP
-        return new Enemy(name + " (Wave " + wave + ")", baseHP, baseHP);
+        return new Enemy(name + " (Wave " + wave + ")", baseHP, baseHP, baseAttackMin, baseAttackMax);
     }
 }

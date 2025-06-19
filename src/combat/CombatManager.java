@@ -16,7 +16,14 @@ public class CombatManager {
         StringBuilder result = new StringBuilder();
 
         int playerDamage = player.attack();
+        boolean isCrit = false;
+        if (playerDamage < 0) {
+            playerDamage = -playerDamage;
+            isCrit = true;
+        }
+
         enemy.takeDamage(playerDamage);
+        if (isCrit) result.append("CRITICAL HIT! ");
         result.append("You dealt ").append(playerDamage).append(" damage to ").append(enemy.getName()).append(".\n");
 
         if (enemy.isAlive()) {
@@ -32,13 +39,10 @@ public class CombatManager {
 
     public String playerHeal(){
         StringBuilder result = new StringBuilder();
-
         int healed = player.heal();
-        if (healed == 0) {
-            result.append("Not enough mana to heal!\n");
-        } else {
-            result.append("You healed yourself for ").append(healed).append(" HP.\n");
-        }
+
+        if (healed == 0) result.append("Not enough mana to heal!\n");
+        else result.append("You healed yourself for ").append(healed).append(" HP.\n");
 
         if (enemy.isAlive()) {
             int enemyDamage = enemy.attack();
@@ -51,11 +55,10 @@ public class CombatManager {
 
     public String playerFireball() {
         StringBuilder result = new StringBuilder();
-
         int fireballDamage = player.fireball();
-        if (fireballDamage == 0) {
-            result.append("Not enough mana to cast Fireball!\n");
-        } else {
+
+        if (fireballDamage == 0) result.append("Not enough mana to cast Fireball!\n");
+        else {
             enemy.takeDamage(fireballDamage);
             result.append("You cast Fireball and dealt ").append(fireballDamage).append(" damage to ").append(enemy.getName()).append(".\n");
         }
@@ -71,12 +74,6 @@ public class CombatManager {
         return result.toString();
     }
 
-
-    public Player getPlayer(){
-        return player;
-    }
-
-    public Enemy getEnemy(){
-        return enemy;
-    }
+    public Player getPlayer(){ return player; }
+    public Enemy getEnemy(){ return enemy; }
 }
