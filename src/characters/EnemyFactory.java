@@ -7,9 +7,11 @@ public class EnemyFactory {
 
     public Enemy generate(int wave) {
         String[] names = {"Goblin", "Orc", "Skeleton", "Dark Elf", "Troll", "Demon"};
+
         String name = names[random.nextInt(names.length)];
 
         int baseHP = 30 + wave * 10;
+
         int baseAttackMin = 5 + wave;
         int baseAttackMax = baseAttackMin + 5;
 
